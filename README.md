@@ -1,1 +1,1 @@
-Collection of solved leetcode questions, mainly medium difficulty.
+Collection of data structures and algorithm problems and my solutions.
