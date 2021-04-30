@@ -13,15 +13,16 @@ class Solution {
 public:
     int recurse(TreeNode* node, int& diameter)
     {
-        if(node == NULL) return 0;
+        if(!node) return 0;
         
         int left_height = recurse(node->left, diameter);
         int right_height = recurse(node->right, diameter);
         
         diameter = max(diameter, left_height + right_height);
-        return max(left_height + 1, right_height + 1);
+        return max(left_height, right_height) + 1;
     }
-    int diameterOfBinaryTree(TreeNode* root) {
+    int diameterOfBinaryTree(TreeNode* root) 
+    {
         int diameter = 0;
         recurse(root, diameter);
         return diameter;
