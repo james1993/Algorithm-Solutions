@@ -12,18 +12,21 @@
 class Solution {
 public:
     
-    void dfs(TreeNode* node, int& max_depth, int current_depth)
+    void recurse(TreeNode* node, int current_depth, int& max_depth)
     {
         if(!node) return;
         
+        current_depth++;
         max_depth = max(max_depth, current_depth);
-        dfs(node->left, max_depth, current_depth+1);
-        dfs(node->right, max_depth, current_depth+1);
+        
+        recurse(node->left, current_depth, max_depth);
+        recurse(node->right, current_depth, max_depth);
     }
     
-    int maxDepth(TreeNode* root) {
+    int maxDepth(TreeNode* root) 
+    {
         int max_depth = 0;
-        dfs(root, max_depth, 1);
+        recurse(root, 0, max_depth);
         return max_depth;
     }
 };
