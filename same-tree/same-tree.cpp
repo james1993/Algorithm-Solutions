@@ -12,22 +12,25 @@
 class Solution {
 public:
     
-    void dfs(TreeNode* p, TreeNode* q, bool& is_same)
+    void recurse(TreeNode* p, TreeNode* q, bool& same)
     {
         if(!p && !q) return;
-        if((p && !q) || (q && !p) || (p->val != q->val))
+        if(!p || !q) 
         {
-            is_same = false;
+            same = false;
             return;
         }
         
-        dfs(p->left, q->left, is_same);
-        dfs(p->right, q->right, is_same);
+        if(p->val != q->val) same = false;
+        
+        recurse(p->left, q->left, same);
+        recurse(p->right, q->right, same);
     }
     
-    bool isSameTree(TreeNode* p, TreeNode* q) {
-        bool is_same = true;
-        dfs(p, q, is_same);
-        return is_same;
+    bool isSameTree(TreeNode* p, TreeNode* q) 
+    {
+        bool same = true;
+        recurse(p, q, same);
+        return same;
     }
 };
