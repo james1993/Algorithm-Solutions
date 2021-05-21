@@ -10,21 +10,19 @@
  * };
  */
 class Solution {
-private:
-    vector<int> res;
 public:
-    vector<int> inorderTraversal(TreeNode* root) {
-        recurse(root);
-        return res;
-    }
-    
-    void recurse(TreeNode* root)
+    void recurse(TreeNode* node, vector<int>& values)
     {
-        if(root != NULL)
-        {
-            recurse(root->left);
-            res.push_back(root->val);
-            recurse(root->right);
-        }
+        if(!node) return;
+        
+        recurse(node->left, values);
+        values.push_back(node->val);
+        recurse(node->right, values);
+        
+    }
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> values;
+        recurse(root, values);
+        return values;
     }
 };
