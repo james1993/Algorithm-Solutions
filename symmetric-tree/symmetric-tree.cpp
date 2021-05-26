@@ -11,28 +11,20 @@
  */
 class Solution {
 public:
-    
-    void dfs(TreeNode* left_node, TreeNode* right_node, bool& is_symmetric)
+    void recurse(TreeNode* p, TreeNode* q, bool& symmetric)
     {
-        if(!left_node && !right_node) return;
-        if(!left_node || !right_node) 
+        if(!p && !q) return;
+        else if((p && !q) || (!p && q)) symmetric = false;
+        else
         {
-            is_symmetric = false;
-            return;
+            if(p->val != q->val) symmetric = false;
+            recurse(p->left, q->right, symmetric);
+            recurse(p->right, q->left, symmetric);
         }
-        
-        if(left_node->val != right_node->val) 
-        {
-            is_symmetric = false;
-            return;
-        }
-        dfs(left_node->left, right_node->right, is_symmetric);
-        dfs(left_node->right, right_node->left, is_symmetric);
     }
-    
     bool isSymmetric(TreeNode* root) {
-        bool is_symmetric = true;
-        dfs(root->left, root->right, is_symmetric);
-        return is_symmetric;
+        bool symmetric = true;
+        recurse(root->left, root->right, symmetric);
+        return symmetric;
     }
 };
