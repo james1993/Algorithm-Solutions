@@ -11,24 +11,20 @@
  */
 class Solution {
 public:
-    
     void recurse(TreeNode* p, TreeNode* q, bool& same)
     {
         if(!p && !q) return;
-        if(!p || !q) 
-        {
+        else if((p && !q) || (!p && q)) 
             same = false;
-            return;
+        else
+        {
+            if(p->val != q->val) same = false;
+            recurse(p->left, q->left, same);
+            recurse(p->right, q->right, same);
         }
         
-        if(p->val != q->val) same = false;
-        
-        recurse(p->left, q->left, same);
-        recurse(p->right, q->right, same);
     }
-    
-    bool isSameTree(TreeNode* p, TreeNode* q) 
-    {
+    bool isSameTree(TreeNode* p, TreeNode* q) {
         bool same = true;
         recurse(p, q, same);
         return same;
