@@ -11,18 +11,20 @@
  */
 class Solution {
 public:
-    int recurse(TreeNode* node, int& diameter)
+    int recurse(TreeNode* root, int& diameter)
     {
-        if(!node) return 0;
+       if(!root) return 0;
         
-        int left_height = recurse(node->left, diameter);
-        int right_height = recurse(node->right, diameter);
+        int left = recurse(root->left, diameter);
+        int right = recurse(root->right, diameter);
         
-        diameter = max(diameter, left_height + right_height);
-        return max(left_height, right_height) + 1;
+        diameter = max(diameter, left + right);
+        cout << "Visited node " << root->val << ". Current max diameter: " << diameter << "\n";
+        return max(left, right) + 1;
+        
     }
-    int diameterOfBinaryTree(TreeNode* root) 
-    {
+    
+    int diameterOfBinaryTree(TreeNode* root) {
         int diameter = 0;
         recurse(root, diameter);
         return diameter;
