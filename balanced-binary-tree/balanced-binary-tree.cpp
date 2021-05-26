@@ -11,21 +11,19 @@
  */
 class Solution {
 public:
-    
-    int dfs(TreeNode* node, bool& is_balanced)
+    int recurse(TreeNode* node, bool& balanced)
     {
         if(!node) return 0;
         
-        int left_height = dfs(node->left, is_balanced);
-        int right_height = dfs(node->right, is_balanced);
+        int left = recurse(node->left, balanced);
+        int right = recurse(node->right, balanced);
         
-        if(abs(left_height - right_height) > 1) is_balanced = false;
-        return max(left_height, right_height) + 1;
+        if(abs(left-right) > 1) balanced = false;
+        return max(left, right) + 1;
     }
-    
     bool isBalanced(TreeNode* root) {
-        bool is_balanced = true;
-        dfs(root, is_balanced);
-        return is_balanced;
+        bool balanced = true;
+        recurse(root, balanced);
+        return balanced;
     }
 };
