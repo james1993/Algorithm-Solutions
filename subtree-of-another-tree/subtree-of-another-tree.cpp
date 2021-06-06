@@ -11,21 +11,33 @@
  */
 class Solution {
 public:
-    
-    bool isSubtree(TreeNode* s, TreeNode* t) 
+
+    void recurse(TreeNode* node, TreeNode* subNode, bool& is_sub)
     {
-        if(!s) return false;
-        //if (recurse(s,t)) return true;
+        if(!node && !subNode) return;
+        if(!node || !subNode) 
+        {
+            is_sub = false;
+            return;
+        }
         
-        return recurse(s,t) || isSubtree(s->left,t) || isSubtree(s->right,t);
+        if(node->val != subNode->val) is_sub = false;
+        
+        recurse(node->left, subNode->left, is_sub);
+        recurse(node->right, subNode->right, is_sub);
     }
-    
-    bool recurse(TreeNode *s, TreeNode *t)
-    {
-        if (!s && !t) return true;
-        if (!s || !t) return false;
-        if (s->val != t->val) return false;
+    bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+        if(!root || !subRoot) return false;
+        bool is_sub = false;
         
-        return recurse(s->left, t->left) && recurse(s->right, t->right);
+        if(root->val == subRoot->val)
+        {
+            is_sub = true;
+            recurse(root, subRoot, is_sub);
+            if(is_sub) 
+                return true;
+        }
+        //else
+            return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
     }
 };
