@@ -9,19 +9,22 @@
  */
 class Solution {
 public:
-    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
-        if (!root) return NULL;
+    void recurse(TreeNode* node, TreeNode* p, TreeNode*& inorder, TreeNode*& prev)
+    {
+        if(!node) return;
         
-        TreeNode *suc = NULL;
-        while (root != NULL) {
-            if (root->val <= p->val) {
-                root = root->right;
-            } else {
-                suc = root;
-                root = root->left;
-            }
-        }
+        recurse(node->right, p, inorder, prev);
         
-        return suc;
+        if(node == p) inorder = prev;
+        prev = node;
+        
+        recurse(node->left, p, inorder, prev);
+    }
+    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) 
+    {
+        TreeNode* inorder = NULL;
+        TreeNode* prev = NULL;
+        recurse(root, p, inorder, prev);
+        return inorder;
     }
 };
