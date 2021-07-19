@@ -14,8 +14,8 @@ public:
                 direction = (direction += 90) % 360;
                 break;
             case 'R':
-                direction = direction -= 90;
-                direction = direction % 360 < 0 ? direction+360 : direction;
+                //direction = direction -= 90;
+                direction = (direction-= 90) % 360 < 0 ? direction+360 : direction;
                 break;
             default:
                 break;
